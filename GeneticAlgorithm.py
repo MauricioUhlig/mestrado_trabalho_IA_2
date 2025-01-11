@@ -68,8 +68,8 @@ class GeneticAlgorithm(AlgoritmoSolucionador):
             best_distances += [min(distance_list)]
 
             # if (geracao+1) % 10 == 0:
-        plots.plot_axes_figure_ga(melhor_custo.coordenadas.to_numpy(), melhor_custo.solucao, iteration_list,
-                        distance_list, best_distances)
+        # plots.plot_axes_figure_ga(melhor_custo.coordenadas.to_numpy(), melhor_custo.solucao, iteration_list,
+        #                 distance_list, best_distances)
 
         # Retorna o melhor indivíduo
         melhor_individuo = min(populacao.populacao, key=lambda ind: ind.custo)

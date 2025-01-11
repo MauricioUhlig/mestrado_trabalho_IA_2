@@ -47,7 +47,7 @@ from HillClimbing import HillClimbing
 from HillClimbingWithRestart import HillClimbingWithRestart
 from SimulatedAnnealing import SimulatedAnnealing 
 from GeneticAlgorithm import GeneticAlgorithm
-
+from Rastrigin import Rastrigin
 import plots
 
 
@@ -76,31 +76,52 @@ df_coordenadas = pd.read_table(
               )
 
 
-tsp = TSP(df_coordenadas)
+tsp = TSP(df_coordenadas[:10])
 
 # print(f'\nCusto aleatório: {tsp.calcula_custo(tsp.solucao):7.3f}')
 # plots.plota_rotas(tsp.coordenadas, tsp.solucao)
 
-tsp.reset()
-hc = HillClimbing(tsp)
+# tsp.reset()
+# hc = HillClimbing(tsp)
+# melhor_custo, melhor_solucao = hc.run()
+# print(f'\ncusto hill climb classic: {melhor_custo:7.3f} Rota: {melhor_solucao}')
+# #plots.plota_rotas(tsp.coordenadas, melhor_solucao, "hill climb classic", melhor_custo)
+
+# tsp.reset()
+# hcwr = HillClimbingWithRestart(tsp, 100)
+# melhor_custo, melhor_solucao = hcwr.run()
+# print(f'\ncusto hill climb with restart: {melhor_custo:7.3f} Rota: {melhor_solucao}')
+# #plots.plota_rotas(tsp.coordenadas, melhor_solucao, "hill climb with restart", melhor_custo)
+
+# tsp.reset()
+# sa = SimulatedAnnealing(tsp, 1400, 20, 100, 0.997)
+# melhor_custo, melhor_solucao = sa.run()
+# print(f'\ncusto Simulated Annealing: {melhor_custo:7.3f} Rota: {melhor_solucao}')
+# #plots.plota_rotas(tsp.coordenadas, melhor_solucao, "Simulated Annealing", melhor_custo)
+
+# ga = GeneticAlgorithm(tsp, tamanho_populacao = 100, n_geracoes = 1000, taxa_mutacao = 0.1)
+# melhor_custo, melhor_solucao = ga.run()
+# print(f'\ncusto Genetic Algorithm: {melhor_custo:7.3f} Rota: {melhor_solucao}')
+# #plots.plota_rotas(tsp.coordenadas, melhor_solucao, "Genetic Algorithm", melhor_custo)
+
+rstng = Rastrigin()
+hc = HillClimbing(rstng)
 melhor_custo, melhor_solucao = hc.run()
-print(f'\ncusto hill climb classic: {melhor_custo:7.3f} Rota: {melhor_solucao}')
-plots.plota_rotas(tsp.coordenadas, melhor_solucao, "hill climb classic", melhor_custo)
+print(f'\ncusto hill climb classic: {melhor_custo:7.3f} Ponto: {melhor_solucao}')
 
-tsp.reset()
-hcwr = HillClimbingWithRestart(tsp, 100)
+rstng.reset()
+hcwr = HillClimbingWithRestart(rstng, 100)
 melhor_custo, melhor_solucao = hcwr.run()
-print(f'\ncusto hill climb with restart: {melhor_custo:7.3f} Rota: {melhor_solucao}')
-plots.plota_rotas(tsp.coordenadas, melhor_solucao, "hill climb with restart", melhor_custo)
+print(f'\ncusto hill climb with restart: {melhor_custo:7.3f} Ponto: {melhor_solucao}')
+#plots.plota_rotas(tsp.coordenadas, melhor_solucao, "hill climb with restart", melhor_custo)
 
-tsp.reset()
-sa = SimulatedAnnealing(tsp, 1400, 20, 100, 0.997)
+rstng.reset()
+sa = SimulatedAnnealing(rstng, 1000, 50, 1, 0.0011111)
 melhor_custo, melhor_solucao = sa.run()
-print(f'\ncusto Simulated Annealing: {melhor_custo:7.3f} Rota: {melhor_solucao}')
-plots.plota_rotas(tsp.coordenadas, melhor_solucao, "Simulated Annealing", melhor_custo)
+print(f'\ncusto Simulated Annealing: {melhor_custo:7.3f} Ponto: {melhor_solucao}')
+#plots.plota_rotas(tsp.coordenadas, melhor_solucao, "Simulated Annealing", melhor_custo)
 
-ga = GeneticAlgorithm(tsp, tamanho_populacao = 100, n_geracoes = 1000, taxa_mutacao = 0.1)
+ga = GeneticAlgorithm(rstng, tamanho_populacao = 100, n_geracoes = 1000, taxa_mutacao = 0.1)
 melhor_custo, melhor_solucao = ga.run()
-print(f'\ncusto Genetic Algorithm: {melhor_custo:7.3f} Rota: {melhor_solucao}')
-plots.plota_rotas(tsp.coordenadas, melhor_solucao, "Genetic Algorithm", melhor_custo)
-
+print(f'\ncusto Genetic Algorithm: {melhor_custo:7.3f} Ponto: {melhor_solucao}')
+#plots.plota_rotas(tsp.coordenadas, melhor_solucao, "Genetic Algorithm", melhor_custo)

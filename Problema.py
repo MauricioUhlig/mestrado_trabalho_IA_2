@@ -20,7 +20,17 @@ class Problema:
 
   def obtem_melhor_vizinho(self, solucao_atual):
     'Retorna tupla com melhor solução e custo da melhor solução, comparada com a solução atual'
-    pass
+    melhor_custo = float('inf')
+    melhor_vizinho = solucao_atual
+
+    for vizinho in self.gera_vizinhos(solucao_atual):
+        custo_atual = self.calcula_custo(vizinho)
+        
+        if custo_atual < melhor_custo:
+            melhor_custo = custo_atual
+            melhor_vizinho = vizinho
+
+    return melhor_vizinho, melhor_custo
 
   def calcula_custo(self, solucao_atual):
     'Calcula o custo da solução atual fornecida'
@@ -46,6 +56,8 @@ class Problema:
     'Calcula a probabilidade de aceitação da solução baseada no custo e temperatura'
     if novo_custo < self.custo: # melhor == menor (<)
         return 1.0
+    elif temperatura <= 0.0001:
+        return 0
     else:
         return math.exp((self.custo - novo_custo) / temperatura)
 
@@ -53,7 +65,12 @@ class Problema:
     'Gera problema aleatório com `n_elementos` elementos para testes'
     pass
 
-  def set_solucao(self, solucao):
+  def set_solucao(self, solucao : list):
     'Atribui a melhor solucao como solucao do problema'
     self.solucao = solucao
     self.custo = self.calcula_custo(solucao)
+  
+  @staticmethod
+  def calcula_nova_temperatura(temperatura_atual : float, taxa_resfriamento : float):
+    'Realiza o calculo da decrementação da temperatura para cada problema'
+    pass

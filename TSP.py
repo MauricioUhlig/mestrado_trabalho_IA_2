@@ -70,21 +70,6 @@ class TSP(Problema):
         new_route[i], new_route[j] = new_route[j], new_route[i]
         return new_route
 
-
-    def obtem_melhor_vizinho(self, solucao):
-        melhor_custo = self.calcula_custo(solucao)
-        melhor_vizinho = solucao
-
-        for vizinho in self.gera_vizinhos(solucao):
-            custo_atual = self.calcula_custo(vizinho)
-            
-            if custo_atual < melhor_custo:
-                melhor_custo = custo_atual
-                melhor_vizinho = vizinho
-
-        self.qtd_calculo_custo = 0
-        return melhor_vizinho, melhor_custo
-
     def solucao_aleatoria(self):
         'Cria uma solucao inicial com as cidades em um ordem aleatoria'
         cidades = self.cidades
@@ -127,3 +112,7 @@ class TSP(Problema):
         i, j = random.sample(range(len(self.solucao)), 2)
         self.solucao[i], self.solucao[j] = self.solucao[j], self.solucao[i]
         self.set_solucao(self.solucao)
+
+    @staticmethod
+    def calcula_nova_temperatura(temperatura_atual : float, taxa_resfriamento : float):
+        return temperatura_atual*taxa_resfriamento
