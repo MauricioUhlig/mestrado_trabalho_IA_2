@@ -64,19 +64,23 @@ import executor
 
 
 import pandas as pd
-url_coordenadas_cidade = 'https://www.math.uwaterloo.ca/tsp/world/wi29.tsp'
+# url_coordenadas_cidade = 'https://www.math.uwaterloo.ca/tsp/world/wi29.tsp'
 
-df_coordenadas = pd.read_table(
-                    url_coordenadas_cidade,
-                    skiprows=7,           # ignora as 7 primeiras linhas com informações
-                    names=['X', 'Y'],     # nomes das colunas
-                    sep=' ',              # separador das colunas
-                    index_col=0,          # usar col=0 como index (nome das cidades)
-                    skipfooter=1,         # ignora a última linha (EOF)
-                    engine='python'       # para o parser usar skipfooter sem warning
-              )
+# df_coordenadas = pd.read_table(
+#                     url_coordenadas_cidade,
+#                     skiprows=7,           # ignora as 7 primeiras linhas com informações
+#                     names=['X', 'Y'],     # nomes das colunas
+#                     sep=' ',              # separador das colunas
+#                     index_col=0,          # usar col=0 como index (nome das cidades)
+#                     skipfooter=1,         # ignora a última linha (EOF)
+#                     engine='python'       # para o parser usar skipfooter sem warning
+#               )
 
+# df_coordenadas.to_csv('df_coordenadas.csv', index=False)
 
+NUMERO_EXECUCOES = 10
+
+df_coordenadas = pd.read_csv('df_coordenadas.csv')
 problema = TSP(df_coordenadas)
 
 algoritmos = [
@@ -86,8 +90,12 @@ algoritmos = [
     GeneticAlgorithm(problema, tamanho_populacao = 100, n_geracoes = 1000, taxa_mutacao = 0.1)
     ]
 
-df_custos_tsp = executor.executa_n_vezes(algoritmos, n_vezes=1)
+df_custos_tsp, solucao = executor.executa_n_vezes(algoritmos, n_vezes=NUMERO_EXECUCOES)
+df_solucao_tsp = pd.DataFrame(solucao,columns=["Algoritmo", "Solucao"]).set_index("Algoritmo")
+df_custos_tsp.to_csv('df_custos_tsp.csv')
+df_solucao_tsp.to_csv('df_solucao_tsp.csv')
 
+# print(df_custos_tsp.T.describe())
 
 problema = Rastrigin()
 algoritmos = [
@@ -97,7 +105,16 @@ algoritmos = [
     GeneticAlgorithm(problema, tamanho_populacao = 100, n_geracoes = 1000, taxa_mutacao = 0.1)
     ]
 
-df_custos_rstng = executor.executa_n_vezes(algoritmos, n_vezes=1)
+df_custos_rastrigin, solucao = executor.executa_n_vezes(algoritmos, n_vezes=NUMERO_EXECUCOES)
+df_solucao_rastrigin = pd.DataFrame(solucao,columns=["Algoritmo", "Solucao"]).set_index("Algoritmo")
+df_custos_rastrigin.to_csv('df_custos_rastrigin.csv')
+df_solucao_rastrigin.to_csv('df_solucao_rastrigin.csv')
+
+# print(df_custos_rastrigin.T.describe())
+
+# print('\n\n\n')
+# df_custos_import = pd.read_csv('df_custos_rastrigin.csv', index_col=0)
+# print(df_custos_import.T.describe())
 
 # print(f'\nCusto aleatório: {tsp.calcula_custo(tsp.solucao):7.3f}')
 # plots.plota_rotas(tsp.coordenadas, tsp.solucao)

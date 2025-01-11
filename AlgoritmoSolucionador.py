@@ -3,7 +3,7 @@ class AlgoritmoSolucionador:
   def __init__(self):
     self.problema : Problema = None
 
-  def run(self):
+  def run(self) -> list:
     'Executa a solucao do algoritmo'
     pass
   def get_name(self) -> str:

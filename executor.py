@@ -6,7 +6,7 @@ from AlgoritmoSolucionador import AlgoritmoSolucionador
 # Cria estruta de dados (DataFrame) para armazenar vários resultados
 # diferentes e visualizá-los através de estatísticas
 
-def cria_df_custos(algoritmos : list[AlgoritmoSolucionador], n_vezes):
+def cria_df_custos(algoritmos : list[AlgoritmoSolucionador], n_vezes) -> pd.DataFrame:
 
     nomes_algoritmos  = [a.get_name() for a in algoritmos]
 
@@ -20,21 +20,29 @@ def cria_df_custos(algoritmos : list[AlgoritmoSolucionador], n_vezes):
     return df_results
 
 # Executa N vezes para gerar estatísticas da variável custo
-def executa_n_vezes(algoritmos : list[AlgoritmoSolucionador], n_vezes):
+def executa_n_vezes(algoritmos : list[AlgoritmoSolucionador], n_vezes) -> tuple[pd.DataFrame, list]:
 
     # Cria DataFrame para armazenar os resultados
     df_custo = cria_df_custos(algoritmos, n_vezes)
 
-    for algoritmo in algoritmos:
+    melhor_solucao_algoritmo : list[tuple] = []
 
+    for algoritmo in algoritmos:
+        
+        melhor_solucao = None
+        melhor_custo = float('inf')
         print(algoritmo.get_name())
 
         for i in range(n_vezes):
             algoritmo.reset() ## Realiza o reset para uma solucao não interferir na proxima
-            
+
             custo, solucao = algoritmo.run()
             df_custo.loc[algoritmo.get_name(),i] = custo
 
             print(f'{custo:10.3f}  {solucao}')
+            if(custo < melhor_custo):
+                melhor_custo = custo
+                melhor_solucao = solucao
 
-    return df_custo
+        melhor_solucao_algoritmo += [(algoritmo.get_name(), melhor_solucao)]
+    return df_custo, melhor_solucao_algoritmo
