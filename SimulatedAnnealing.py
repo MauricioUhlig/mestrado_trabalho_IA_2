@@ -4,12 +4,18 @@ import plots
 import random
 from tqdm import tqdm
 class SimulatedAnnealing(AlgoritmoSolucionador):
-  def __init__(self, problema : Problema, n_iter : int, n_rep : int, initial_temperature : float = 1000, cooling_rate : float = 0.2):
+  def __init__(self, problema : Problema, n_iter : int, n_rep : int, initial_temperature : float = 1000, cooling_rate : float = 0.997):
     self.n_iter = n_iter
     self.n_rep = n_rep
     self.problema = problema
     self.cooling_rate = cooling_rate
     self.initial_temperature = initial_temperature
+
+    self.original_initial_temperature = initial_temperature
+
+  def reset(self):
+     self.initial_temperature = self.original_initial_temperature
+     return super().reset()
 
   def run(self):
     best_route = self.problema.solucao
