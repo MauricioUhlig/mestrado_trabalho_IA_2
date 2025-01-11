@@ -64,23 +64,23 @@ import executor
 
 
 import pandas as pd
-# url_coordenadas_cidade = 'https://www.math.uwaterloo.ca/tsp/world/wi29.tsp'
+url_coordenadas_cidade = 'https://www.math.uwaterloo.ca/tsp/world/wi29.tsp'
 
-# df_coordenadas = pd.read_table(
-#                     url_coordenadas_cidade,
-#                     skiprows=7,           # ignora as 7 primeiras linhas com informações
-#                     names=['X', 'Y'],     # nomes das colunas
-#                     sep=' ',              # separador das colunas
-#                     index_col=0,          # usar col=0 como index (nome das cidades)
-#                     skipfooter=1,         # ignora a última linha (EOF)
-#                     engine='python'       # para o parser usar skipfooter sem warning
-#               )
+df_coordenadas = pd.read_table(
+                    url_coordenadas_cidade,
+                    skiprows=7,           # ignora as 7 primeiras linhas com informações
+                    names=['X', 'Y'],     # nomes das colunas
+                    sep=' ',              # separador das colunas
+                    index_col=0,          # usar col=0 como index (nome das cidades)
+                    skipfooter=1,         # ignora a última linha (EOF)
+                    engine='python'       # para o parser usar skipfooter sem warning
+              )
 
 # df_coordenadas.to_csv('df_coordenadas.csv', index=False)
 
 NUMERO_EXECUCOES = 10
 
-df_coordenadas = pd.read_csv('df_coordenadas.csv')
+# df_coordenadas = pd.read_csv('df_coordenadas.csv') Existe um bug de começar no indice errado
 problema = TSP(df_coordenadas)
 
 algoritmos = [

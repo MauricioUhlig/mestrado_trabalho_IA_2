@@ -1,4 +1,4 @@
-#!/Users/mauricio.uhlig/Documents/projects/mestrado/IA/trabalho-2/bin/python3
+#!/Users/mauricio.uhlig/Documents/projects/mestrado/IA/trabalho-2/bin/python3.13
 # -*- coding: utf-8 -*-
 import re
 import sys
