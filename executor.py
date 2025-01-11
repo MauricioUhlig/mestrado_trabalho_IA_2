@@ -44,5 +44,5 @@ def executa_n_vezes(algoritmos : list[AlgoritmoSolucionador], n_vezes) -> tuple[
                 melhor_custo = custo
                 melhor_solucao = solucao
 
-        melhor_solucao_algoritmo += [(algoritmo.get_name(), melhor_solucao)]
+        melhor_solucao_algoritmo += [(algoritmo.get_name(), melhor_custo, melhor_solucao)]
     return df_custo, melhor_solucao_algoritmo
