@@ -91,7 +91,7 @@ class TSP(Problema):
 
     @staticmethod
     def calcula_nova_temperatura(temperatura_atual: float, taxa_resfriamento: float):
-        return temperatura_atual * taxa_resfriamento
+        return temperatura_atual - taxa_resfriamento
 
 #####################################################################################
 

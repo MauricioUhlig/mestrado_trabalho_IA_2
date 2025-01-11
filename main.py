@@ -78,7 +78,7 @@ df_coordenadas = pd.read_table(
 
 # df_coordenadas.to_csv('df_coordenadas.csv', index=False)
 
-NUMERO_EXECUCOES = 30
+NUMERO_EXECUCOES = 10
 
 # df_coordenadas = pd.read_csv('df_coordenadas.csv') Existe um bug de começar no indice errado
 
@@ -87,7 +87,7 @@ problema = TSP(df_coordenadas)
 algoritmos = [
     HillClimbing(problema),
     HillClimbingWithRestart(problema, n_execucoes=100),
-    SimulatedAnnealing(problema, n_iter=1400, n_rep=20, initial_temperature=1000, cooling_rate=0.9936),
+    SimulatedAnnealing(problema, n_iter=1400, n_rep=20, initial_temperature=1, cooling_rate=0.0011111),
     GeneticAlgorithm(problema, tamanho_populacao = 100, n_geracoes = 1000, taxa_mutacao = 0.1)
     ]
 
@@ -101,8 +101,8 @@ df_solucao_tsp.to_csv('df_solucao_tsp.csv')
 problema = Rastrigin()
 algoritmos = [
     HillClimbing(problema),
-    HillClimbingWithRestart(problema, n_execucoes=100),
-    SimulatedAnnealing(problema, n_iter=1400, n_rep=20, initial_temperature=1000, cooling_rate=0.997),
+    HillClimbingWithRestart(problema, n_execucoes=1000),
+    SimulatedAnnealing(problema, n_iter=1000, n_rep=50, initial_temperature=1, cooling_rate=0.0011111),
     GeneticAlgorithm(problema, tamanho_populacao = 100, n_geracoes = 1000, taxa_mutacao = 0.1)
     ]
 
