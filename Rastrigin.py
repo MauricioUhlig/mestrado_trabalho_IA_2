@@ -1,8 +1,6 @@
 from Problema import Problema
 
-import random
 import numpy as np
-import math
 import copy
 
 class Rastrigin(Problema):
@@ -15,20 +13,20 @@ class Rastrigin(Problema):
     self.solucao_original = self.solucao
     self.custo_original = self.custo
 
-  def solucao_aleatoria(self) -> list[float]:
+  def solucao_aleatoria(self) -> np.ndarray[float]:
      return np.random.uniform(self.limite_inferior, self.limite_superior, size=2).tolist()
 
   def calcula_custo(self, solucao_atual) -> float:
-     return 20 + solucao_atual[0]**2 - 10 * math.cos(2 * math.pi * solucao_atual[0]) + solucao_atual[1]**2 - 10 * math.cos(2 * math.pi * solucao_atual[1])
+     return 20 + solucao_atual[0]**2 - 10 * np.cos(2 * np.pi * solucao_atual[0]) + solucao_atual[1]**2 - 10 * np.cos(2 * np.pi * solucao_atual[1])
 
-  def gera_vizinhos(self, solucao: list[float])-> list[list[float]]:
+  def gera_vizinhos(self, solucao: np.ndarray[float])-> list[np.ndarray[float]]:
       solucao = self.gera_movimento_aleatorio_valido(solucao)
       return [solucao]
 
-  def gera_vizinho_aleatorio(self)-> list[float]:
+  def gera_vizinho_aleatorio(self)-> np.ndarray[float]:
      return self.gera_movimento_aleatorio_valido(self.solucao)
   
-  def gera_mutacao(self)-> list[float]:
+  def gera_mutacao(self)-> np.ndarray[float]:
     novo = self.gera_movimento_aleatorio_valido(self.solucao)
     self.set_solucao(novo)
 
@@ -47,7 +45,7 @@ class Rastrigin(Problema):
   def gera_passo_aleatorio(self) -> float:
     return float(np.random.randn(1)[0])*self.std_passo
   
-  def gera_movimento_aleatorio_valido(self, solucao : list[float]):
+  def gera_movimento_aleatorio_valido(self, solucao : np.ndarray[float]):
     vizinho = solucao.copy()
 
     for i in range(2):

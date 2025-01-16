@@ -6,6 +6,7 @@ from tqdm import tqdm
 
 class HillClimbingWithRestart(AlgoritmoSolucionador):
   def __init__(self, problema : Problema, n_execucoes : int):
+      super().__init__()
       self.problema = problema
       self.n_execucoes = n_execucoes
 

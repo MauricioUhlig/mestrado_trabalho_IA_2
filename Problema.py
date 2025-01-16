@@ -1,9 +1,10 @@
 import math
+import numpy as np
 
 class Problema:
   def __init__(self):
      self.custo : float = 0
-     self.solucao = None
+     self.solucao: np.ndarray[float] = None
 
      # Guardando valores originais para possibilitar o reset
      self.solucao_original = None
@@ -56,16 +57,23 @@ class Problema:
     'Calcula a probabilidade de aceitação da solução baseada no custo e temperatura'
     if novo_custo < self.custo: # melhor == menor (<)
         return 1.0
-    elif temperatura <= 0.0001:
-        return 0
     else:
-        return math.exp((self.custo - novo_custo) / temperatura)
+        escala = self.calcula_escala_temperatura()
+        prob = math.exp((self.custo - novo_custo) / (temperatura * escala + 1e-10)) # é somado + 1e-10 para evitar problema da divisao por 0
+        # print(f'prob: {prob} - {self.custo - novo_custo}  {temperatura}')
+        return prob
 
+  def calcula_escala_temperatura(self):
+    l10 = math.log10(self.custo)
+    if l10 < 1:
+      return 1
+    return math.pow(10, l10 -1)
+  
   def gera_problema_aleatorio(self, n_elementos : int):
     'Gera problema aleatório com `n_elementos` elementos para testes'
     pass
 
-  def set_solucao(self, solucao : list):
+  def set_solucao(self, solucao : np.ndarray[float]):
     'Atribui a melhor solucao como solucao do problema'
     self.solucao = solucao
     self.custo = self.calcula_custo(solucao)

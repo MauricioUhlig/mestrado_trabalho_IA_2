@@ -3,6 +3,7 @@ import numpy as np
 import pandas as pd
 from Problema import Problema
 from AlgoritmoSolucionador import AlgoritmoSolucionador
+import copy
 # Cria estruta de dados (DataFrame) para armazenar vários resultados
 # diferentes e visualizá-los através de estatísticas
 
@@ -41,8 +42,10 @@ def executa_n_vezes(algoritmos : list[AlgoritmoSolucionador], n_vezes) -> tuple[
 
             print(f'{custo:10.3f}  {solucao}')
             if(custo < melhor_custo):
+                melhor_algo_temp_to_plot = copy.deepcopy(algoritmo)
                 melhor_custo = custo
                 melhor_solucao = solucao
 
+        melhor_algo_temp_to_plot.plot()
         melhor_solucao_algoritmo += [(algoritmo.get_name(), melhor_custo, melhor_solucao)]
     return df_custo, melhor_solucao_algoritmo

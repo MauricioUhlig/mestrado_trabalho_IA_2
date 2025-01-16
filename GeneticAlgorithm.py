@@ -6,6 +6,7 @@ import plots
 
 class GeneticAlgorithm(AlgoritmoSolucionador):
     def __init__(self, problema: Problema, tamanho_populacao: int = 20, n_geracoes: int = 100, taxa_mutacao: float = 0.1):
+        super().__init__()
         self.problema = problema
         self.tamanho_populacao = tamanho_populacao
         self.n_geracoes = n_geracoes
@@ -24,10 +25,6 @@ class GeneticAlgorithm(AlgoritmoSolucionador):
         # Gera a população inicial
         populacao = PopulacaoProblema(self.problema, self.tamanho_populacao)
         populacao.gera_populacao()
-
-        iteration_list = []
-        distance_list  = []
-        best_distances = []
 
         # with tqdm(total=self.n_geracoes, colour='blue',
         #       desc=f'Iter: 0 - Cost: NaN') as pbar:
@@ -63,9 +60,9 @@ class GeneticAlgorithm(AlgoritmoSolucionador):
             # pbar.update(1)
 
             # Implementacao para visualizacao apenas
-            iteration_list += [geracao]
-            distance_list  += [melhor_custo.custo]
-            best_distances += [min(distance_list)]
+            self.iteracoes += [geracao]
+            self.custos  += [melhor_custo.custo]
+            self.custo_melhor_solucao += [min(self.custos)]
 
             # if (geracao+1) % 10 == 0:
         # plots.plot_axes_figure_ga(melhor_custo.coordenadas.to_numpy(), melhor_custo.solucao, iteration_list,
@@ -73,4 +70,5 @@ class GeneticAlgorithm(AlgoritmoSolucionador):
 
         # Retorna o melhor indivíduo
         melhor_individuo = min(populacao.populacao, key=lambda ind: ind.custo)
+        self.set_melhor_solucao(melhor_individuo.solucao, melhor_individuo.custo)
         return melhor_individuo.custo, melhor_individuo.solucao

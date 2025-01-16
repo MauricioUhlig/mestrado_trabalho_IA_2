@@ -5,6 +5,7 @@ import random
 from tqdm import tqdm
 class SimulatedAnnealing(AlgoritmoSolucionador):
   def __init__(self, problema : Problema, n_iter : int, n_rep : int, initial_temperature : float = 1000, cooling_rate : float = 0.997):
+    super().__init__()
     self.n_iter = n_iter
     self.n_rep = n_rep
     self.problema = problema
@@ -21,14 +22,6 @@ class SimulatedAnnealing(AlgoritmoSolucionador):
     best_route = self.problema.solucao
     best_distance = self.problema.custo
     temperature = self.initial_temperature
-
-    #-----------------------------------------------
-    iteration_list = []
-    best_distances = []
-    distance_list  = []
-    accept_p_list  = []
-    temperat_list  = []
-    #-----------------------------------------------
 
     with tqdm(total=self.n_iter*self.n_rep, colour='blue',
               desc=f'Iter: 0 - Cost: NaN - Temperature: {temperature:3.5f} - Best: {best_distance:7.3f}') as pbar:
@@ -55,13 +48,15 @@ class SimulatedAnnealing(AlgoritmoSolucionador):
           if new_distance < best_distance:
               best_route = new_route
               best_distance = new_distance
+              self.set_melhor_solucao(best_route, best_distance)
 
         # Implementacao para visualizacao apenas
-          iteration_list += [iteration]
-          best_distances += [best_distance]
-          distance_list  += [self.problema.custo]
-          accept_p_list  += [acceptance_prob]
-          temperat_list  += [temperature]
+          self.iteracoes += [iteration]
+          self.custos  += [self.problema.custo]
+          self.custo_melhor_solucao += [best_distance]
+          self.probabilidades  += [acceptance_prob]
+          self.temperaturas  += [temperature]
+
 
           # if iteration % 50 == 0:
           #   plot_axes_figure_sa(self.problema.coordenadas.to_numpy(), self.problema.solucao, iteration_list,

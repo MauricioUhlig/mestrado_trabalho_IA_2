@@ -15,7 +15,7 @@ from IPython.display import clear_output
 
 # Plota a solução do roteamento das cidades
 # usando a biblioteca PLOTLY
-def plota_rotas(df_cidades: pd.DataFrame, ordem_cidades, algoritmo: str, custo_total : float):
+def plota_rotas(df_cidades: pd.DataFrame, ordem_cidades, algoritmo: str = None, custo_total : float = None):
     df_solucao = df_cidades.copy()
     df_solucao = df_solucao.reindex([i + 1 for i in ordem_cidades])
 
@@ -72,118 +72,58 @@ def plota_rotas(df_cidades: pd.DataFrame, ordem_cidades, algoritmo: str, custo_t
 
 
 
-def plot_path(cities_xy, cities_path, ax):
+def plot_distances(title, iteration_list, distance_list, best_distances):
+    trace_current = go.Scatter(x=iteration_list, y=distance_list, mode='lines',
+                                line=dict(color='blue', width=2), name='Atual')
+    trace_best = go.Scatter(x=iteration_list, y=best_distances, mode='lines',
+                             line=dict(color='green', width=2), name='Melhor')
 
-    # Reeordena as cidades pela ordem do caminho
-    cities = cities_xy[cities_path]
+    fig = go.Figure()
+    fig.add_trace(trace_current)
+    fig.add_trace(trace_best)
 
-    # Repete a primeira cidade para fechar o ciclo
-    x = cities[:,0]
-    y = cities[:,1]
+    fig.update_layout(
+        title=title,
+        xaxis_title='Iterações',
+        yaxis_title='Custos',
+        showlegend=True
+    )
 
-    # Personalização do gráfico
-    ax.set_xlabel('X (Longitude)')
-    ax.set_ylabel('Y (Latitude)')
-    ax.set_title('Caminho')
-    
+    fig.show()
 
-    # Plotagem das coordenadas interligadas com pontos vermelhos e linhas azuis
-    ax.plot(x, y, color='blue', linestyle='-', linewidth=2)
-    ax.plot(x, y, color='red', marker='o', markersize=8, linestyle='')
-    ax.plot(x[[-1,0]], y[[-1,0]], color='orange', linestyle='-', linewidth=2)
+def plot_acceptance_prob(title, iteration_list, accept_p_list):
+    colors = ['blue' if p == 1.0 else 'red' for p in accept_p_list]
 
-def plot_distances(iteration_list, distance_list, best_distances, ax):
+    trace = go.Scatter(x=iteration_list, y=accept_p_list, mode='markers',
+                       marker=dict(color=colors, size=6), name='Probabilidade')
 
-    x  = iteration_list
-    y1 = distance_list
-    y2 = best_distances
+    fig = go.Figure()
+    fig.add_trace(trace)
 
-    # Personalização do gráfico
-    ax.set_xlabel('Iterações')
-    ax.set_ylabel('Distâncias (custos)')
-    ax.set_title('Comprimento Total do caminho')
+    fig.update_layout(
+        title=title,
+        xaxis_title='Iterações',
+        yaxis_title='Probabilidade',
+        yaxis=dict(range=[0, 1.05]),
+        showlegend=False
+    )
+    fig.show()
 
-    ax.plot(x,y1, label='Atual')
-    ax.plot(x,y2, label='Melhor')
-    ax.legend()
+def plot_temperature(title, iteration_list, temperat_list):
+    trace = go.Scatter(x=iteration_list, y=temperat_list, mode='lines',
+                       line=dict(color='purple', width=2), name='Temperatura')
 
-def plot_acceptance_prob(iteration_list, accept_p_list, ax):
+    fig = go.Figure()
+    fig.add_trace(trace)
 
-    x = iteration_list
-    y = accept_p_list
-
-    # Personalização do gráfico
-    ax.set_xlabel('Iterações')
-    ax.set_ylabel('Probabilidade')
-    ax.set_title('Probabilidade de Aceitação')
-
-    ax.set_ylim([0, 1.05])
-
-    # Criar uma nova lista de cores com base nos valores de y
-    xc, yc, colors = zip(*[(xi, yi, 'b') if yi==1.0 else (xi, yi, 'r') \
-                           for xi, yi in enumerate(y)])
-
-    ax.scatter(xc, yc, c=colors, s=2)
-
-def plot_temperature(iteration_list, temperat_list, ax):
-
-    x = iteration_list
-    y = temperat_list
-
-    # Personalização do gráfico
-    ax.set_xlabel('Iterações')
-    ax.set_ylabel('Temperatura')
-    ax.set_title('Decaimento da Temperatura')
-
-    ax.set_ylim([0, max(y)])
-
-    ax.plot(x,y)
-
-#----------------------------------------------------------------
-
-def plot_axes_figure_sa(cities_xy, cities_path, iteration_list,
-                     distance_list, best_distances,
-                     accept_p_list, temperat_list):
-
-    x = iteration_list
-    y1 = distance_list
-    y2 = best_distances
-    y3 = accept_p_list
-    y4 = temperat_list
-
-    clear_output(wait=True)
-
-    fig, ((ax1, ax2), (ax3, ax4)) = plt.subplots(2, 2, figsize=(12,8))
-
-    plot_path(cities_xy, cities_path, ax1)
-    plot_distances      (x, y1, y2, ax2)
-    plot_acceptance_prob(x, y3, ax3)
-    plot_temperature    (x, y4, ax4)
-
-    # Ajusta o espaçamento entre os subgráficos
-    fig.tight_layout()
-
-    plt.pause(0.001)
-
-def plot_axes_figure_ga(cities_xy, cities_path, iteration_list,
-                     distance_list, best_distances):
-
-    x = iteration_list
-    y1 = distance_list
-    y2 = best_distances
-
-    clear_output(wait=True)
-
-    fig, ((ax1, ax2)) = plt.subplots(1, 2, figsize=(12,4))
-
-    plot_path(cities_xy, cities_path, ax1)
-    plot_distances      (x, y1, y2, ax2)
-
-    # Ajusta o espaçamento entre os subgráficos
-    fig.tight_layout()
-
-    plt.pause(0.001)
-
+    fig.update_layout(
+        title=title,
+        xaxis_title='Iterações',
+        yaxis_title='Temperatura',
+        yaxis=dict(range=[0, max(temperat_list)]),
+        showlegend=False
+    )
+    fig.show()
 #-----------------------------------------------------
 #-----------------------------------------------------
 

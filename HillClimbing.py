@@ -3,6 +3,7 @@ from Problema import Problema
 
 class HillClimbing(AlgoritmoSolucionador):
   def __init__(self, problema : Problema):
+      super().__init__()
       self.problema = problema
 
   def run(self):
@@ -26,4 +27,5 @@ class HillClimbing(AlgoritmoSolucionador):
         else:
             break   # custo nao melhorou, entao sai do while
 
+    self.set_melhor_solucao(solucao_melhor, custo_melhor)
     return custo_melhor, solucao_melhor
