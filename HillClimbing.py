@@ -12,7 +12,7 @@ class HillClimbing(AlgoritmoSolucionador):
     solucao_inicial = self.problema.solucao_aleatoria()
     # melhor solucao ate o momento
     solucao_melhor, custo_melhor = self.problema.obtem_melhor_vizinho(solucao_inicial)
-    self.problema.set_solucao(solucao_melhor)
+    self.problema.set_solucao(solucao_melhor, custo_melhor)
 
 
     while True:
@@ -23,9 +23,10 @@ class HillClimbing(AlgoritmoSolucionador):
         if custo_novo < custo_melhor:
             custo_melhor   = custo_novo
             solucao_melhor = candidato_novo
-            self.problema.set_solucao(solucao_melhor)
+            self.problema.set_solucao(solucao_melhor, custo_melhor)
         else:
             break   # custo nao melhorou, entao sai do while
 
     self.set_melhor_solucao(solucao_melhor, custo_melhor)
+    self.acumula_qtd_calculo_custo(self.problema.quantidade_calculo_custo)
     return custo_melhor, solucao_melhor

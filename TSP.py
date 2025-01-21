@@ -11,11 +11,11 @@ class TSP(Problema):
     'Travelling Salesman Problem'
     def __init__(self, coordenadas: pd.DataFrame):
         print(f'Shape das coordenadas: {coordenadas.shape}\n\n')
+        super().__init__()
         self.coordenadas = coordenadas
         self.n_cidades = coordenadas.shape[0]
         self.cidades = np.array([a - 1 for a in self.coordenadas.index.to_list()])  # NumPy array
        
-        self.qtd_calculo_custo = 0
         self.solucao = self.solucao_aleatoria()  # NumPy array
 
         self.custo = self.calcula_custo(self.solucao)
@@ -37,7 +37,9 @@ class TSP(Problema):
         Função Objetivo: calcula custo de uma dada solução.
         '''
         custo = calcula_custo_numba(solucao, self.coordenadas.values)
-        self.qtd_calculo_custo += 1
+        
+        super().calcula_custo(solucao)
+
         return custo
 
     def gera_vizinhos(self, solucao):

@@ -25,6 +25,7 @@ class GeneticAlgorithm(AlgoritmoSolucionador):
         # Gera a população inicial
         populacao = PopulacaoProblema(self.problema, self.tamanho_populacao)
         populacao.gera_populacao()
+        self.acumula_qtd_calculo_custo(populacao.get_quantidade_calculo_custo())
 
         # with tqdm(total=self.n_geracoes, colour='blue',
         #       desc=f'Iter: 0 - Cost: NaN') as pbar:
@@ -53,7 +54,8 @@ class GeneticAlgorithm(AlgoritmoSolucionador):
 
             # Atualiza a população com a nova geração
             populacao = nova_populacao
-
+            self.acumula_qtd_calculo_custo(populacao.get_quantidade_calculo_custo())
+            
             # Calcula os custos da nova população
             melhor_custo = min(populacao.populacao, key=lambda ind: ind.custo)
             # pbar.set_description(f'Iter: {geracao+1} Cost: {melhor_custo.custo:7.3f}')

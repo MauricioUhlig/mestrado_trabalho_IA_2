@@ -17,13 +17,17 @@ class SimulatedAnnealing(AlgoritmoSolucionador):
   def reset(self):
      self.initial_temperature = self.original_initial_temperature
      return super().reset()
+  
+  def passo_log(self):
+     return self.n_iter / 100 # 1%
 
   def run(self):
     best_route = self.problema.solucao
     best_distance = self.problema.custo
     temperature = self.initial_temperature
+    passo = self.passo_log()
 
-    with tqdm(total=self.n_iter*self.n_rep, colour='blue',
+    with tqdm(total=self.n_iter, colour='blue',
               desc=f'Iter: 0 - Cost: NaN - Temperature: {temperature:3.5f} - Best: {best_distance:7.3f}') as pbar:
 
       for iteration in range(self.n_iter):
@@ -36,10 +40,10 @@ class SimulatedAnnealing(AlgoritmoSolucionador):
               acceptance_prob = self.problema.calcula_probabilidade(new_distance, temperature)
 
               if random.random() < acceptance_prob:
-                  self.problema.set_solucao(new_route)
-
-              pbar.set_description(f'Iter: {iteration*self.n_rep+i+1} - Cost: {self.problema.custo:7.3f} - Temperature: {temperature:3.5f} - Best: {best_distance:7.3f}')
-              pbar.update(1)
+                  self.problema.set_solucao(new_route, new_distance)
+          if (iteration+1) % passo == 0:
+            pbar.set_description(f'Iter: {iteration+1} - Cost: {self.problema.custo:7.3f} - Temperature: {temperature:3.5f} - Best: {best_distance:7.3f}')
+            pbar.update(passo)
 
           temperature = self.problema.calcula_nova_temperatura(temperature, self.cooling_rate)
 
@@ -70,4 +74,5 @@ class SimulatedAnnealing(AlgoritmoSolucionador):
     #                 distance_list, best_distances,
     #                 accept_p_list, temperat_list)
 
+    self.acumula_qtd_calculo_custo(self.problema.quantidade_calculo_custo)
     return best_distance, best_route

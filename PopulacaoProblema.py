@@ -27,3 +27,7 @@ class PopulacaoProblema:
     torneio = random.sample(self.populacao, k=5)  # Seleciona indivíduos aleatórios
     vencedor = min(torneio, key=lambda ind: ind.custo)  # Retorna o de menor custo
     return vencedor
+  
+  def get_quantidade_calculo_custo(self):
+    'Retorna a quantidade total que a populacao acionou a função objetivo'
+    return sum(prob.quantidade_calculo_custo for prob in self.populacao)

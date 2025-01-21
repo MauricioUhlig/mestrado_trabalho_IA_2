@@ -16,6 +16,7 @@ from IPython.display import clear_output
 # Plota a solução do roteamento das cidades
 # usando a biblioteca PLOTLY
 def plota_rotas(df_cidades: pd.DataFrame, ordem_cidades, algoritmo: str = None, custo_total : float = None):
+    print(ordem_cidades)
     df_solucao = df_cidades.copy()
     df_solucao = df_solucao.reindex([i + 1 for i in ordem_cidades])
 

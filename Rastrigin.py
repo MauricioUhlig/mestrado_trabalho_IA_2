@@ -5,6 +5,7 @@ import copy
 
 class Rastrigin(Problema):
   def __init__(self, limite_inferior : float = -5.12, limite_superior : float = 5.12, std_passo : float = 0.2):
+    super().__init__()
     self.limite_inferior = limite_inferior
     self.limite_superior = limite_superior
     self.std_passo = std_passo
@@ -17,7 +18,8 @@ class Rastrigin(Problema):
      return np.random.uniform(self.limite_inferior, self.limite_superior, size=2).tolist()
 
   def calcula_custo(self, solucao_atual) -> float:
-     return 20 + solucao_atual[0]**2 - 10 * np.cos(2 * np.pi * solucao_atual[0]) + solucao_atual[1]**2 - 10 * np.cos(2 * np.pi * solucao_atual[1])
+    super().calcula_custo(solucao_atual)
+    return 20 + solucao_atual[0]**2 - 10 * np.cos(2 * np.pi * solucao_atual[0]) + solucao_atual[1]**2 - 10 * np.cos(2 * np.pi * solucao_atual[1])
 
   def gera_vizinhos(self, solucao: np.ndarray[float])-> list[np.ndarray[float]]:
       solucao = self.gera_movimento_aleatorio_valido(solucao)

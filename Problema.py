@@ -5,6 +5,7 @@ class Problema:
   def __init__(self):
      self.custo : float = 0
      self.solucao: np.ndarray[float] = None
+     self.quantidade_calculo_custo:int = 0
 
      # Guardando valores originais para possibilitar o reset
      self.solucao_original = None
@@ -14,6 +15,7 @@ class Problema:
     'Apenas para dar reset na solução, para que todas as execuções iniciem com os mesmos parametros de entrada'
     self.custo = self.custo_original
     self.solucao = self.solucao_original
+    self.quantidade_calculo_custo = 0
 
   def solucao_aleatoria(self):
     'Retorna solução aleatória para o problema'
@@ -35,7 +37,7 @@ class Problema:
 
   def calcula_custo(self, solucao_atual):
     'Calcula o custo da solução atual fornecida'
-    pass
+    self.quantidade_calculo_custo += 1
 
   def gera_vizinhos(self):
     'Gera todos os vizinhos possíveis'
@@ -73,10 +75,13 @@ class Problema:
     'Gera problema aleatório com `n_elementos` elementos para testes'
     pass
 
-  def set_solucao(self, solucao : np.ndarray[float]):
+  def set_solucao(self, solucao : np.ndarray[float], custo : float = None):
     'Atribui a melhor solucao como solucao do problema'
     self.solucao = solucao
-    self.custo = self.calcula_custo(solucao)
+    if custo is not None:
+      self.custo = custo 
+    else:
+      self.custo = self.calcula_custo(solucao)
   
   @staticmethod
   def calcula_nova_temperatura(temperatura_atual : float, taxa_resfriamento : float):
