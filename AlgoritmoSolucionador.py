@@ -41,23 +41,23 @@ class AlgoritmoSolucionador:
   def plot(self): 
     'Gera imagnes a partir dos metadados da execucao'
     print(f'\nQuantidade total de hits na funcao objetivo do algoritmo {self.get_name()}: {self.quantidade_calculo_custo_acumulado:_}\n')
-    # if self.problema.__class__.__name__ == "TSP":
-    #   plots.plota_rotas(self.problema.coordenadas, self.melhor_solucao, self.get_name(), self.melhor_custo)
+    if self.problema.__class__.__name__ == "TSP":
+      plots.plota_rotas(self.problema.coordenadas, self.melhor_solucao, self.get_name(), self.melhor_custo)
 
-    # elif self.problema.__class__.__name__ == "Rastrigin":
-    #   # plots.plota_rotas(self.problema.coordenadas, self.melhor_solucao)
-    #   print("Nao implementado ainda")
+    elif self.problema.__class__.__name__ == "Rastrigin":
+      # plots.plota_rotas(self.problema.coordenadas, self.melhor_solucao)
+      print("Nao implementado ainda")
 
-    # else: 
-    #   raise Exception(f'Plot não implementado para o problema {self.problema.__class__.__name__}')
+    else: 
+      raise Exception(f'Plot não implementado para o problema {self.problema.__class__.__name__}')
     
-    # if self.iteracoes != []:
-    #   plots.plot_distances(f'Evolução dos custos do algoritmo {self.get_name()}',self.iteracoes, self.custos, self.custo_melhor_solucao)
+    if self.iteracoes != []:
+      plots.plot_distances(f'Evolução dos custos do algoritmo {self.get_name()}',self.iteracoes, self.custos, self.custo_melhor_solucao)
     
-    # if self.temperaturas != []:
-    #   plots.plot_temperature(f'Decaimento da temperatura do algoritmo {self.get_name()}',self.iteracoes,self.temperaturas)
+    if self.temperaturas != []:
+      plots.plot_temperature(f'Decaimento da temperatura do algoritmo {self.get_name()}',self.iteracoes,self.temperaturas)
       
-    # if self.probabilidades != []:
-    #   plots.plot_acceptance_prob(f'Probabilidade de aceitação do algoritmo {self.get_name()}',self.iteracoes,self.probabilidades)
+    if self.probabilidades != []:
+      plots.plot_acceptance_prob(f'Probabilidade de aceitação do algoritmo {self.get_name()}',self.iteracoes,self.probabilidades)
 
     print(f'\n\nCUSTO: {self.melhor_custo} SOLUCAO: {self.melhor_solucao}\n\n')

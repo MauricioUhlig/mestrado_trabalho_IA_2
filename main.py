@@ -87,15 +87,15 @@ def calculate_coolig_rate(n_iter, initial_tem, percent_when_zero):
     return initial_tem/(n_iter * percent_when_zero)
 
 problema = TSP(df_coordenadas)
-sa_n_iter = 100000
-sa_n_rep = 94
+sa_n_iter = 7000
+sa_n_rep = 70
 sa_temp = 1
 sa_cooling_rate = calculate_coolig_rate(sa_n_iter,sa_temp, 0.9)
 algoritmos = [
     HillClimbing(problema),
-    HillClimbingWithRestart(problema, n_execucoes=1000),
+    HillClimbingWithRestart(problema, n_execucoes=50),
     SimulatedAnnealing(problema, n_iter=sa_n_iter, n_rep=sa_n_rep, initial_temperature=sa_temp, cooling_rate=sa_cooling_rate),
-    GeneticAlgorithm(problema, tamanho_populacao = 115, n_geracoes = 400, taxa_mutacao = 0.1)
+    GeneticAlgorithm(problema, tamanho_populacao = 110, n_geracoes = 800, taxa_mutacao = 0.1)
     ]
 
 df_custos_tsp, solucao, df_hit_func_objetivo_tsp, df_tempo_tsp = executor.executa_n_vezes(algoritmos, n_vezes=NUMERO_EXECUCOES, plot=plot)
@@ -107,16 +107,16 @@ df_tempo_tsp.to_csv('df_tempo_tsp.csv')
 
 # # print(df_custos_tsp.T.describe())
 
-sa_n_iter = 100000
-sa_n_rep = 100
+sa_n_iter = 110
+sa_n_rep = 10
 sa_temp = 1
 sa_cooling_rate = calculate_coolig_rate(sa_n_iter,sa_temp, 0.9)
 problema = Rastrigin()
 algoritmos = [
      HillClimbing(problema),
-     HillClimbingWithRestart(problema, n_execucoes=3600000),
+     HillClimbingWithRestart(problema, n_execucoes=450),
      SimulatedAnnealing(problema, n_iter=sa_n_iter, n_rep=sa_n_rep, initial_temperature=sa_temp, cooling_rate=sa_cooling_rate),
-     GeneticAlgorithm(problema, tamanho_populacao = 20, n_geracoes = 1000, taxa_mutacao = 0.1)
+     GeneticAlgorithm(problema, tamanho_populacao = 20, n_geracoes = 50, taxa_mutacao = 0.1)
     ]
 
 df_custos_rastrigin, solucao, df_hit_func_objetivo_rastrigin, df_tempo_rastrigin = executor.executa_n_vezes(algoritmos, n_vezes=NUMERO_EXECUCOES, plot=plot)

@@ -19,7 +19,7 @@ class SimulatedAnnealing(AlgoritmoSolucionador):
      return super().reset()
   
   def passo_log(self):
-     return self.n_iter / 100 # 1%
+     return 1 if self.n_iter <= 1000 else self.n_iter / 100.0 # 1%
 
   def run(self):
     best_route = self.problema.solucao

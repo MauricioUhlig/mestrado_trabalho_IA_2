@@ -16,6 +16,10 @@ class PopulacaoProblema:
         problema_copia.set_solucao(problema_copia.solucao_aleatoria())
         self.populacao.append(problema_copia)
 
+  def reset_quantidade_calculo_custo(self):
+    for p in self.populacao:
+      p.quantidade_calculo_custo = 0
+
   def append(self, problema : Problema):
     self.populacao.append(problema)
 

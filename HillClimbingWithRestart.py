@@ -13,7 +13,7 @@ class HillClimbingWithRestart(AlgoritmoSolucionador):
 
   
   def passo_log(self):
-     return self.n_execucoes / 100 # 1%
+     return 1 if self.n_execucoes <= 1000 else self.n_execucoes / 100 # 1%
   
   def run(self):
     custo_melhor = None

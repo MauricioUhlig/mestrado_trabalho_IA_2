@@ -2,7 +2,7 @@ from AlgoritmoSolucionador import AlgoritmoSolucionador
 from Problema import Problema
 from PopulacaoProblema import PopulacaoProblema
 import random
-import plots
+
 
 class GeneticAlgorithm(AlgoritmoSolucionador):
     def __init__(self, problema: Problema, tamanho_populacao: int = 20, n_geracoes: int = 100, taxa_mutacao: float = 0.1):
@@ -54,8 +54,10 @@ class GeneticAlgorithm(AlgoritmoSolucionador):
 
             # Atualiza a população com a nova geração
             populacao = nova_populacao
-            self.acumula_qtd_calculo_custo(populacao.get_quantidade_calculo_custo())
             
+            self.acumula_qtd_calculo_custo(populacao.get_quantidade_calculo_custo())
+            populacao.reset_quantidade_calculo_custo()
+
             # Calcula os custos da nova população
             melhor_custo = min(populacao.populacao, key=lambda ind: ind.custo)
             # pbar.set_description(f'Iter: {geracao+1} Cost: {melhor_custo.custo:7.3f}')
