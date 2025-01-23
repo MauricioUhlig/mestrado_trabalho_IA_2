@@ -130,6 +130,50 @@ def plot_temperature(title, iteration_list, temperat_list):
 
 """### Boxplots"""
 
+# def boxplot_sorted(df, rot=90, figsize=(12,6), fontsize=20):
+#     df2 = df.T
+#     meds = df2.median().sort_values(ascending=False)
+#     axes = df2[meds.index].boxplot(figsize=figsize, rot=rot, fontsize=fontsize,
+#                                    boxprops=dict(linewidth=4, color='cornflowerblue'),
+#                                    whiskerprops=dict(linewidth=4, color='cornflowerblue'),
+#                                    medianprops=dict(linewidth=4, color='firebrick'),
+#                                    capprops=dict(linewidth=4, color='cornflowerblue'),
+#                                    flierprops=dict(marker='o', markerfacecolor='dimgray',
+#                                         markersize=12, markeredgecolor='black'),
+#                                    return_type="axes")
+
+#     axes.set_title("Cost of Algorithms", fontsize=fontsize)
+
+# def boxplot_sorted(df, rot=90, figsize=(12, 6), fontsize=20):
+#     df2 = df.T
+#     meds = df2.median().sort_values(ascending=False)
+#     sorted_df = df2[meds.index]
+
+#     fig = go.Figure()
+
+#     for col in sorted_df.columns:
+#         fig.add_trace(go.Box(
+#             y=sorted_df[col],
+#             name=col,
+#             boxmean=True,
+#             line=dict(width=4, color='cornflowerblue'),
+#             whiskerwidth=0.5,
+#             marker=dict(color='dimgray', size=12, line=dict(color='black', width=1)),
+#             median=dict(line=dict(width=4, color='firebrick'))
+#         ))
+
+#     fig.update_layout(
+#         title="Cost of Algorithms",
+#         title_font_size=fontsize,
+#         xaxis=dict(title="Algorithms", tickangle=rot, title_font_size=fontsize),
+#         yaxis=dict(title="Values", title_font_size=fontsize),
+#         boxmode='group',
+#         template="plotly_white",
+#         width=figsize[0] * 100,  # Convert figsize to approximate pixels
+#         height=figsize[1] * 100
+#     )
+
+#     return fig
 def boxplot_sorted(df, rot=90, figsize=(12,6), fontsize=20):
     df2 = df.T
     meds = df2.median().sort_values(ascending=False)
@@ -143,3 +187,4 @@ def boxplot_sorted(df, rot=90, figsize=(12,6), fontsize=20):
                                    return_type="axes")
 
     axes.set_title("Cost of Algorithms", fontsize=fontsize)
+    plt.show()

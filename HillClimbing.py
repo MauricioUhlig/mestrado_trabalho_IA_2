@@ -6,6 +6,9 @@ class HillClimbing(AlgoritmoSolucionador):
       super().__init__()
       self.problema = problema
 
+  def get_short_name(self) -> str:
+    return 'HC'
+  
   def run(self):
 
     # solucao inicial

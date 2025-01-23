@@ -12,6 +12,9 @@ class GeneticAlgorithm(AlgoritmoSolucionador):
         self.n_geracoes = n_geracoes
         self.taxa_mutacao = taxa_mutacao
 
+    def get_short_name(self) -> str:
+        return 'GA'
+
     def mutacao(self, individuo: Problema):
         """
         Realiza mutação no indivíduo, trocando dois genes de posição aleatoriamente.

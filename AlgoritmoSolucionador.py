@@ -20,6 +20,10 @@ class AlgoritmoSolucionador:
     'Retorna o nome do algoritmo'
     return self.__class__.__name__
   
+  def get_short_name(self) -> str:
+    'Retorna nome curto da classe'
+    pass
+  
   def acumula_qtd_calculo_custo(self, qtd_calculo_custo:int):
     self.quantidade_calculo_custo_acumulado += qtd_calculo_custo
 

@@ -14,6 +14,9 @@ class SimulatedAnnealing(AlgoritmoSolucionador):
 
     self.original_initial_temperature = initial_temperature
 
+  def get_short_name(self) -> str:
+      return 'SA'
+    
   def reset(self):
      self.initial_temperature = self.original_initial_temperature
      return super().reset()

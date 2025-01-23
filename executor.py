@@ -10,7 +10,7 @@ import time
 
 def cria_df(algoritmos : list[AlgoritmoSolucionador], n_vezes) -> pd.DataFrame:
 
-    nomes_algoritmos  = [a.get_name() for a in algoritmos]
+    nomes_algoritmos  = [a.get_short_name() for a in algoritmos]
 
     n_lin = len(nomes_algoritmos)
     n_col = n_vezes
@@ -42,8 +42,8 @@ def executa_n_vezes(algoritmos : list[AlgoritmoSolucionador], n_vezes : int, plo
             algoritmo.reset() ## Realiza o reset para uma solucao não interferir na proxima
 
             custo, solucao = algoritmo.run()
-            df_custo.loc[algoritmo.get_name(),i] = custo
-            df_hit_func_objetivo.loc[algoritmo.get_name(),i] = algoritmo.quantidade_calculo_custo_acumulado
+            df_custo.loc[algoritmo.get_short_name(),i] = custo
+            df_hit_func_objetivo.loc[algoritmo.get_short_name(),i] = algoritmo.quantidade_calculo_custo_acumulado
 
             print(f'{custo:10.3f}  {solucao}')
             if(custo < melhor_custo):
@@ -52,9 +52,9 @@ def executa_n_vezes(algoritmos : list[AlgoritmoSolucionador], n_vezes : int, plo
                 melhor_solucao = solucao
         
             stop = time.time()
-            df_tempo.loc[algoritmo.get_name(),i] = (stop-start) * 10**3 # ms
+            df_tempo.loc[algoritmo.get_short_name(),i] = (stop-start) * 10**3 # ms
 
         if plot:
             melhor_algo_temp_to_plot.plot()
-        melhor_solucao_algoritmo += [(algoritmo.get_name(), melhor_custo, melhor_solucao)]
+        melhor_solucao_algoritmo += [(algoritmo.get_short_name(), melhor_custo, melhor_solucao)]
     return df_custo, melhor_solucao_algoritmo, df_hit_func_objetivo, df_tempo

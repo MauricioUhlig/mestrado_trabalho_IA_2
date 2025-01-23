@@ -11,6 +11,8 @@ class HillClimbingWithRestart(AlgoritmoSolucionador):
       self.problema = problema
       self.n_execucoes = n_execucoes
 
+  def get_short_name(self) -> str:
+      return 'HC-R'
   
   def passo_log(self):
      return 1 if self.n_execucoes <= 1000 else self.n_execucoes / 100 # 1%
