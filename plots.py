@@ -174,7 +174,7 @@ def plot_temperature(title, iteration_list, temperat_list):
 #     )
 
 #     return fig
-def boxplot_sorted(df, rot=90, figsize=(12,6), fontsize=20):
+def boxplot_sorted(df, title,rot=90, figsize=(12,6), fontsize=20):
     df2 = df.T
     meds = df2.median().sort_values(ascending=False)
     axes = df2[meds.index].boxplot(figsize=figsize, rot=rot, fontsize=fontsize,
@@ -186,5 +186,5 @@ def boxplot_sorted(df, rot=90, figsize=(12,6), fontsize=20):
                                         markersize=12, markeredgecolor='black'),
                                    return_type="axes")
 
-    axes.set_title("Cost of Algorithms", fontsize=fontsize)
+    axes.set_title(title, fontsize=fontsize)
     plt.show()

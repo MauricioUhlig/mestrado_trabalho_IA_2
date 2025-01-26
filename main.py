@@ -107,8 +107,8 @@ df_tempo_tsp.to_csv('df_tempo_tsp.csv')
 
 # # print(df_custos_tsp.T.describe())
 
-sa_n_iter = 110
-sa_n_rep = 10
+sa_n_iter = 1100
+sa_n_rep = 1
 sa_temp = 1
 sa_cooling_rate = calculate_coolig_rate(sa_n_iter,sa_temp, 0.9)
 problema = Rastrigin()

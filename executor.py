@@ -54,7 +54,6 @@ def executa_n_vezes(algoritmos : list[AlgoritmoSolucionador], n_vezes : int, plo
             stop = time.time()
             df_tempo.loc[algoritmo.get_short_name(),i] = (stop-start) * 10**3 # ms
 
-        if plot:
-            melhor_algo_temp_to_plot.plot()
+        melhor_algo_temp_to_plot.plot(plot)
         melhor_solucao_algoritmo += [(algoritmo.get_short_name(), melhor_custo, melhor_solucao)]
     return df_custo, melhor_solucao_algoritmo, df_hit_func_objetivo, df_tempo

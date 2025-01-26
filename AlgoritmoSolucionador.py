@@ -42,9 +42,11 @@ class AlgoritmoSolucionador:
     self.melhor_solucao = solucao
     self.melhor_custo = custo
 
-  def plot(self): 
+  def plot(self, plot): 
     'Gera imagnes a partir dos metadados da execucao'
     print(f'\nQuantidade total de hits na funcao objetivo do algoritmo {self.get_name()}: {self.quantidade_calculo_custo_acumulado:_}\n')
+    if plot is False:
+      return
     if self.problema.__class__.__name__ == "TSP":
       plots.plota_rotas(self.problema.coordenadas, self.melhor_solucao, self.get_name(), self.melhor_custo)
 
