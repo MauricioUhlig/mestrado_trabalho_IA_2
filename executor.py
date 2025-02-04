@@ -64,4 +64,4 @@ def executa_n_vezes(algoritmos : list[AlgoritmoSolucionador], n_vezes : int, plo
         df_hit_func_objetivo.to_csv(f'df_hit_func_objetivo_{problem_name}.csv')
         df_tempo.to_csv(f'df_tempo_{problem_name}.csv')
 
-    return df_custos, melhor_solucao_algoritmo, df_hit_func_objetivo, df_tempo
+    return melhor_solucao_algoritmo

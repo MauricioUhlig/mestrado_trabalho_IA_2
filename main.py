@@ -86,7 +86,7 @@ algoritmos = [
     GeneticAlgorithm(problema, tamanho_populacao = 110, n_geracoes = 800, taxa_mutacao = 0.1)
     ]
 
-df_custos_tsp, solucao, df_hit_func_objetivo_tsp, df_tempo_tsp = executor.executa_n_vezes(algoritmos, n_vezes=NUMERO_EXECUCOES, plot=plot, save_df= True)
+solucao = executor.executa_n_vezes(algoritmos, n_vezes=NUMERO_EXECUCOES, plot=plot, save_df= True)
 
 
 sa_n_iter = 1100
@@ -101,4 +101,4 @@ algoritmos = [
     GeneticAlgorithm(problema, tamanho_populacao = 20, n_geracoes = 50, taxa_mutacao = 0.1)
     ]
 
-df_custos_rastrigin, solucao, df_hit_func_objetivo_rastrigin, df_tempo_rastrigin = executor.executa_n_vezes(algoritmos, n_vezes=NUMERO_EXECUCOES, plot=plot, save_df= True)
+solucao = executor.executa_n_vezes(algoritmos, n_vezes=NUMERO_EXECUCOES, plot=plot, save_df= True)
