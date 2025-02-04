@@ -1,7 +1,6 @@
 
 import numpy as np
 import pandas as pd
-from Problema import Problema
 from AlgoritmoSolucionador import AlgoritmoSolucionador
 import copy
 import time
@@ -25,7 +24,7 @@ def cria_df(algoritmos : list[AlgoritmoSolucionador], n_vezes) -> pd.DataFrame:
 def executa_n_vezes(algoritmos : list[AlgoritmoSolucionador], n_vezes : int, plot : bool = False, save_df : bool = True ) -> tuple[pd.DataFrame, list]:
 
     # Cria DataFrame para armazenar os resultados
-    df_custo = cria_df(algoritmos, n_vezes)
+    df_custos = cria_df(algoritmos, n_vezes)
     df_hit_func_objetivo = cria_df(algoritmos, n_vezes)
     df_tempo = cria_df(algoritmos, n_vezes)
 
@@ -42,7 +41,7 @@ def executa_n_vezes(algoritmos : list[AlgoritmoSolucionador], n_vezes : int, plo
             algoritmo.reset() ## Realiza o reset para uma solucao não interferir na proxima
 
             custo, solucao = algoritmo.run()
-            df_custo.loc[algoritmo.get_short_name(),i] = custo
+            df_custos.loc[algoritmo.get_short_name(),i] = custo
             df_hit_func_objetivo.loc[algoritmo.get_short_name(),i] = algoritmo.quantidade_calculo_custo_acumulado
 
             print(f'{custo:10.3f}  {solucao}')
@@ -60,9 +59,9 @@ def executa_n_vezes(algoritmos : list[AlgoritmoSolucionador], n_vezes : int, plo
     if(save_df):
         problem_name = algoritmos[0].problema.__class__.__name__
         df_solucao = pd.DataFrame(melhor_solucao_algoritmo,columns=["Algoritmo", "Custo", "Solucao"]).set_index("Algoritmo")
-        df_custo.to_csv(f'df_custo_{problem_name}.csv')
+        df_custos.to_csv(f'df_custos_{problem_name}.csv')
         df_solucao.to_csv(f'df_solucao_{problem_name}.csv')
         df_hit_func_objetivo.to_csv(f'df_hit_func_objetivo_{problem_name}.csv')
         df_tempo.to_csv(f'df_tempo_{problem_name}.csv')
 
-    return df_custo, melhor_solucao_algoritmo, df_hit_func_objetivo, df_tempo
+    return df_custos, melhor_solucao_algoritmo, df_hit_func_objetivo, df_tempo

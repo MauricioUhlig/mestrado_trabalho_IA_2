@@ -66,7 +66,7 @@ df_coordenadas = pd.read_table(
 
 # df_coordenadas.to_csv('df_coordenadas.csv', index=False)
 
-NUMERO_EXECUCOES = 3
+NUMERO_EXECUCOES = 30
 plot = False
 
 # df_coordenadas = pd.read_csv('df_coordenadas.csv') Existe um bug de começar no indice errado
