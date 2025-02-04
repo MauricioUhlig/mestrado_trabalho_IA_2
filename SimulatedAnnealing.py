@@ -65,17 +65,5 @@ class SimulatedAnnealing(AlgoritmoSolucionador):
           self.temperaturas  += [temperature]
 
 
-          # if iteration % 50 == 0:
-          #   plot_axes_figure_sa(self.problema.coordenadas.to_numpy(), self.problema.solucao, iteration_list,
-          #                   distance_list, best_distances,
-          #                   accept_p_list, temperat_list)
-        #-----------------------------------------------
-
-    # plt.show()
-
-    # plots.plot_axes_figure_sa(self.problema.coordenadas.to_numpy(), self.problema.solucao, iteration_list,
-    #                 distance_list, best_distances,
-    #                 accept_p_list, temperat_list)
-
     self.acumula_qtd_calculo_custo(self.problema.quantidade_calculo_custo)
     return best_distance, best_route

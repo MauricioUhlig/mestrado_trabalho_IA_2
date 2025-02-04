@@ -22,7 +22,7 @@ def cria_df(algoritmos : list[AlgoritmoSolucionador], n_vezes) -> pd.DataFrame:
     return df_results
 
 # Executa N vezes para gerar estatísticas da variável custo
-def executa_n_vezes(algoritmos : list[AlgoritmoSolucionador], n_vezes : int, plot : bool = False ) -> tuple[pd.DataFrame, list]:
+def executa_n_vezes(algoritmos : list[AlgoritmoSolucionador], n_vezes : int, plot : bool = False, save_df : bool = True ) -> tuple[pd.DataFrame, list]:
 
     # Cria DataFrame para armazenar os resultados
     df_custo = cria_df(algoritmos, n_vezes)
@@ -56,4 +56,13 @@ def executa_n_vezes(algoritmos : list[AlgoritmoSolucionador], n_vezes : int, plo
 
         melhor_algo_temp_to_plot.plot(plot)
         melhor_solucao_algoritmo += [(algoritmo.get_short_name(), melhor_custo, melhor_solucao)]
+
+    if(save_df):
+        problem_name = algoritmos[0].problema.__class__.__name__
+        df_solucao = pd.DataFrame(melhor_solucao_algoritmo,columns=["Algoritmo", "Custo", "Solucao"]).set_index("Algoritmo")
+        df_custo.to_csv(f'df_custo_{problem_name}.csv')
+        df_solucao.to_csv(f'df_solucao_{problem_name}.csv')
+        df_hit_func_objetivo.to_csv(f'df_hit_func_objetivo_{problem_name}.csv')
+        df_tempo.to_csv(f'df_tempo_{problem_name}.csv')
+
     return df_custo, melhor_solucao_algoritmo, df_hit_func_objetivo, df_tempo

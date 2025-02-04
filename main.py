@@ -48,19 +48,7 @@ from HillClimbingWithRestart import HillClimbingWithRestart
 from SimulatedAnnealing import SimulatedAnnealing 
 from GeneticAlgorithm import GeneticAlgorithm
 from Rastrigin import Rastrigin
-import plots
 import executor
-
-
-"""### Rastrigin"""
-
-"""## Execução
-
-### Executa 1 vez
-"""
-
-# Simula a criação de N cidades
-# com suas respectivas distâncias
 
 
 import pandas as pd
@@ -78,8 +66,8 @@ df_coordenadas = pd.read_table(
 
 # df_coordenadas.to_csv('df_coordenadas.csv', index=False)
 
-NUMERO_EXECUCOES = 30
-plot = True
+NUMERO_EXECUCOES = 3
+plot = False
 
 # df_coordenadas = pd.read_csv('df_coordenadas.csv') Existe um bug de começar no indice errado
 
@@ -98,30 +86,19 @@ algoritmos = [
     GeneticAlgorithm(problema, tamanho_populacao = 110, n_geracoes = 800, taxa_mutacao = 0.1)
     ]
 
-df_custos_tsp, solucao, df_hit_func_objetivo_tsp, df_tempo_tsp = executor.executa_n_vezes(algoritmos, n_vezes=NUMERO_EXECUCOES, plot=plot)
-df_solucao_tsp = pd.DataFrame(solucao,columns=["Algoritmo", "Custo", "Solucao"]).set_index("Algoritmo")
-df_custos_tsp.to_csv('df_custos_tsp.csv')
-df_solucao_tsp.to_csv('df_solucao_tsp.csv')
-df_hit_func_objetivo_tsp.to_csv('df_hit_func_objetivo_tsp.csv')
-df_tempo_tsp.to_csv('df_tempo_tsp.csv')
+df_custos_tsp, solucao, df_hit_func_objetivo_tsp, df_tempo_tsp = executor.executa_n_vezes(algoritmos, n_vezes=NUMERO_EXECUCOES, plot=plot, save_df= True)
 
-# # # print(df_custos_tsp.T.describe())
 
-# sa_n_iter = 1100
-# sa_n_rep = 1
-# sa_temp = 1
-# sa_cooling_rate = calculate_coolig_rate(sa_n_iter,sa_temp, 0.9)
-# problema = Rastrigin()
-# algoritmos = [
-#      HillClimbing(problema),
-#      HillClimbingWithRestart(problema, n_execucoes=450),
-#      SimulatedAnnealing(problema, n_iter=sa_n_iter, n_rep=sa_n_rep, initial_temperature=sa_temp, cooling_rate=sa_cooling_rate),
-#      GeneticAlgorithm(problema, tamanho_populacao = 20, n_geracoes = 50, taxa_mutacao = 0.1)
-#     ]
+sa_n_iter = 1100
+sa_n_rep = 1
+sa_temp = 1
+sa_cooling_rate = calculate_coolig_rate(sa_n_iter,sa_temp, 0.9)
+problema = Rastrigin()
+algoritmos = [
+    HillClimbing(problema),
+    HillClimbingWithRestart(problema, n_execucoes=450),
+    SimulatedAnnealing(problema, n_iter=sa_n_iter, n_rep=sa_n_rep, initial_temperature=sa_temp, cooling_rate=sa_cooling_rate),
+    GeneticAlgorithm(problema, tamanho_populacao = 20, n_geracoes = 50, taxa_mutacao = 0.1)
+    ]
 
-# df_custos_rastrigin, solucao, df_hit_func_objetivo_rastrigin, df_tempo_rastrigin = executor.executa_n_vezes(algoritmos, n_vezes=NUMERO_EXECUCOES, plot=plot)
-# df_solucao_rastrigin = pd.DataFrame(solucao,columns=["Algoritmo", "Custo", "Solucao"]).set_index("Algoritmo")
-# df_custos_rastrigin.to_csv('df_custos_rastrigin.csv')
-# df_solucao_rastrigin.to_csv('df_solucao_rastrigin.csv')
-# df_hit_func_objetivo_rastrigin.to_csv('df_hit_func_objetivo_rastrigin.csv')
-# df_tempo_rastrigin.to_csv('df_tempo_rastrigin.csv')
+df_custos_rastrigin, solucao, df_hit_func_objetivo_rastrigin, df_tempo_rastrigin = executor.executa_n_vezes(algoritmos, n_vezes=NUMERO_EXECUCOES, plot=plot, save_df= True)

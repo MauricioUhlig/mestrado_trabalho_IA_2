@@ -67,7 +67,6 @@ class Problema:
 
   def calcula_escala_temperatura(self):
     l10 = math.log10(self.custo)
-    print(f'custo: {self.custo} - Log10: {l10}')
     if l10 < 1:
       return 1
     return math.pow(10, l10 -1)
